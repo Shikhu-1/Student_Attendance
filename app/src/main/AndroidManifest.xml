@@ -20,6 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".DashboardActivity" />
+        <activity android:name=".MarkAttendanceActivity" />
+        <activity android:name=".ViewAttendanceActivity" />
     </application>
 
 </manifest>

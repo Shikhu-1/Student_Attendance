@@ -1,4 +1,4 @@
-package com.example.studentattendance;
+package com.studentattendance;
 
 import android.content.Intent;
 import android.os.Bundle;

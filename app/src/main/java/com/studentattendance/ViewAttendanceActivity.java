@@ -1,0 +1,45 @@
+package com.studentattendance;
+
+import android.database.Cursor;
+import android.os.Bundle;
+import android.widget.*;
+import androidx.appcompat.app.AppCompatActivity;
+import java.util.ArrayList;
+
+public class ViewAttendanceActivity extends AppCompatActivity {
+
+    ListView lvAttendance;
+    DatabaseHelper db;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_view_attendance);
+
+        db            = new DatabaseHelper(this);
+        lvAttendance  = findViewById(R.id.lvAttendance);
+
+        loadRecords();
+    }
+
+    private void loadRecords() {
+        ArrayList<String> records = new ArrayList<>();
+        Cursor cursor = db.getAllAttendance();
+
+        if (cursor.getCount() == 0) {
+            records.add("No attendance records found.");
+        } else {
+            while (cursor.moveToNext()) {
+                String entry = cursor.getString(1) + " (" + cursor.getString(2) + ")\n"
+                        + "Course: " + cursor.getString(3) + "  |  Date: " + cursor.getString(4)
+                        + "\nStatus: " + cursor.getString(5);
+                records.add(entry);
+            }
+        }
+        cursor.close();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, records);
+        lvAttendance.setAdapter(adapter);
+    }
+}
